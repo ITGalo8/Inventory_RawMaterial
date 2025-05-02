@@ -1,14 +1,14 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from './Auth/LoginScreen';
-// import AdminPage from './pages/AdminPage';
+import Dashboard from './screens/Dashboard/Dashboard';
 
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      {/* <Route path="/admin" element={<AdminPage />} /> */}
+      <Route path="/Dashboard" element={<Dashboard />} />
     </Routes>
   );
 };
