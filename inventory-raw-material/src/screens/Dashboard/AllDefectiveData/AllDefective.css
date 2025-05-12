@@ -1,0 +1,83 @@
+.all-defective-container {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #189ab4;
+  color: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.content {
+  padding: 16px;
+}
+
+.defective-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.defective-item {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.defective-count {
+  background-color: #e1341e;
+  color: white;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loader {
+  font-size: 18px;
+  color: #189ab4;
+}
+
+.no-data-text {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  margin-top: 20px;
+}
+
+.error-text {
+  text-align: center;
+  font-size: 16px;
+  color: red;
+}

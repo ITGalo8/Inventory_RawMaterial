@@ -1,0 +1,60 @@
+/* Sidebar container */
+.sidebar {
+  width: 200px;
+  transition: transform 0.3s ease;
+  background-color: #f4f4f4;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  padding: 20px;
+  z-index: 1000;
+}
+
+/* Sidebar hidden */
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+/* Sidebar visible */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Toggle button */
+.toggle-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Menu links */
+.sidebar-link {
+  display: block;
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Highlight active menu */
+.sidebar-link.active {
+  font-weight: bold;
+  color: #007bff;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+/* Optional: styling for the menu container */
+.uppermenu {
+  margin-top: 40px;
+}
