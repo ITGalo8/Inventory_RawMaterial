@@ -1,41 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import solarPanelImage from '../assets/Solar Panel.png';
 import galoImage from '../assets/Galo.png';
+axios.defaults.withCredentials = true;
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (accessToken && refreshToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const fetchData = async () => {
     setLoading(true);
+    setError('');
     try {
-      const response = await axios.post(`http://88.222.214.93:5000/auth/login`, {
-        email,
-        password,
-        roleId: '8290551b-9d0c-4005-91a8-abe6c841ae4d',
-      });
+      const response = await axios.post(
+        `http://88.222.214.93:5000/auth/login`,
+        {
+          email,
+          password,
+          roleId: '8290551b-9d0c-4005-91a8-abe6c841ae4d',
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
-      const userData = response.data.data;
-      localStorage.setItem('userData', JSON.stringify(userData));
-      localStorage.setItem('userId', userData.id);
+      localStorage.setItem('accessToken', response.data.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.data.refreshToken);
 
-      alert('Successfully Logged In');
       navigate('/dashboard');
     } catch (error) {
-      alert(error?.response?.data?.message || 'Login failed');
+      const errorMessage = error?.response?.data?.message || 'Login failed. Please try again.';
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert('Please enter email and password.');
+      setError('Please enter both email and password.');
       return;
     }
     fetchData();
@@ -59,39 +78,50 @@ const LoginScreen = () => {
             We are happy to see you again. Please enter your Email and Password.
           </p>
 
+          {error && <div style={styles.errorText}>{error}</div>}
+
           <form onSubmit={handleSubmit} style={styles.form}>
-            <label style={styles.label}>Email</label>
+            <label htmlFor="email" style={styles.label}>Email</label>
             <div style={styles.inputContainer}>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 style={styles.input}
                 disabled={loading}
+                required
               />
             </div>
 
-            <label style={styles.label}>Password</label>
+            <label htmlFor="password" style={styles.label}>Password</label>
             <div style={styles.inputContainer}>
               <input
+                id="password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 style={styles.input}
                 disabled={loading}
+                required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 style={styles.toggleButton}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? '👁️' : '👁️‍🗨️'}
               </button>
             </div>
 
-            <button type="submit" disabled={loading} style={styles.button}>
+            <button 
+              type="submit" 
+              disabled={loading} 
+              style={{...styles.button, ...(loading && styles.disabledButton)}}
+            >
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>

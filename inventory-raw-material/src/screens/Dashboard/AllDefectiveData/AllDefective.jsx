@@ -1,37 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import './AllDefective.css'; 
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaExclamationTriangle } from 'react-icons/fa';
+import Api from '../../../Auth/Api';
+import './AllDefective.css';
 
 const AllDefective = () => {
-  const { itemType } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
+  const { itemType } = location.state || {};
+  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const fetchDefectiveData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await Api.get(
+        `/admin/showDefectiveItemsList?itemName=${itemType}`,
+        { withCredentials: true }
+      );
+      setData(response.data.data || []);
+    } catch (err) {
+      const backendError = err.response?.data?.message || err.response?.data?.error || err.message;
+      setError(backendError);
+      
+      if (retryCount < 3 && !err.response) {
+        setTimeout(() => {
+          setRetryCount(prev => prev + 1);
+        }, 2000);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchDefectiveData = async () => {
-      try {
-        const response = await axios.get(
-          `http://88.222.214.93:5000/admin/showDefectiveItemsList?itemName=${itemType}`
-        );
-        setData(response.data.data || []);
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchDefectiveData();
-  }, [itemType]);
+  }, [itemType, retryCount]);
 
   if (loading) {
     return (
       <div className="centered-container">
-        <div className="loader">Loading...</div>
+        <div className="spinner"></div>
+        <p>Loading {itemType} items...</p>
+        {retryCount > 0 && (
+          <p className="retry-message">Attempting to reconnect... ({retryCount}/3)</p>
+        )}
       </div>
     );
   }
@@ -39,32 +56,62 @@ const AllDefective = () => {
   if (error) {
     return (
       <div className="centered-container">
-        <p className="error-text">Error: {error}</p>
+        <div className="error-display">
+          <FaExclamationTriangle className="error-icon" />
+          <h3>Error Loading Data</h3>
+          <p className="error-message">{error}</p>
+          <div className="error-actions">
+            <button 
+              onClick={() => {
+                setRetryCount(0);
+                fetchDefectiveData();
+              }}
+              className="retry-button"
+            >
+              Retry
+            </button>
+            <button 
+              onClick={() => navigate(-1)}
+              className="back-button"
+            >
+              Go Back
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="all-defective-container">
-      <div className="header">
-        <button onClick={() => navigate(-1)} className="back-button">
-          ←
-        </button>
-        <h1>{itemType} Defective Items</h1>
-      </div>
+      <h1 className="centered-header">{itemType} Defective Items</h1>
 
       <div className="content">
         {data.length === 0 ? (
-          <p className="no-data-text">No defective items found for {itemType}</p>
+          <div className="no-data">
+            <p>No defective items found for {itemType}</p>
+            <button 
+              onClick={() => fetchDefectiveData()}
+              className="refresh-button"
+            >
+              Refresh Data
+            </button>
+          </div>
         ) : (
-          <ul className="defective-list">
-            {data.map((item, index) => (
-              <li key={index} className="defective-item">
-                <span className="item-name">{item.itemName}</span>
-                <span className="defective-count">{item.defective}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="defective-items-table">
+            <div className="table-header">
+              <span className="item-name">Item Name</span>
+              <span className="defective-count">Defective Count</span>
+            </div>
+            <div className="table-body">
+              {data.map((item, index) => (
+                <div key={`${item.itemId || index}`} className="table-row">
+                  <span className="item-name">{item.itemName}</span>
+                  <span className="defective-count">{item.defective}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </div>

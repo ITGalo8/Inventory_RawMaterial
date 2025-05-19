@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Api from '../../Auth/Api'
 
 const Bom = () => {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ const Bom = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
-        `http://88.222.214.93:5000/admin/getItemsByName?searchQuery=${itemName}`
+      const response = await Api.get(
+        `/admin/getItemsByName?searchQuery=${itemName}`
       );
       setItems(
         response.data.data.map((item) => ({
@@ -60,8 +61,8 @@ const Bom = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
-        `http://88.222.214.93:5000/admin/getRawMaterialsByItemId?itemId=${itemId}`
+      const response = await Api.get(
+        `/admin/getRawMaterialsByItemId?itemId=${itemId}`
       );
 
       const processedMaterials = (response.data.data || []).map((item) => ({

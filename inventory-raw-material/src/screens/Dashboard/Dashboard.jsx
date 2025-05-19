@@ -1,14 +1,164 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Dashboard.css';
-import { useNavigate } from 'react-router-dom';
-import pumpIcon from '../../assets/Galo.png';
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import pumpIcon from "../../assets/Galo.png";
+// import Api from "../../Auth/Api";
+// import Logout from "../../Auth/Logout";
+// import "./Dashboard.css";
+// import Sidebar from "../Sidebar/Sidebar";
 
-const SimpleCard = ({ backgroundColor, title, content, quantity }) => (
+// const SimpleCard = ({ backgroundColor, title, content, quantity, onMoreInfo }) => (
+//   <div className="card" style={{ backgroundColor }}>
+//     <div className="card-header">
+//       <h2>{title}</h2>
+//       <button
+//         className="more-info-button"
+//         onClick={onMoreInfo}
+//       >
+//         More Info
+//       </button>
+//     </div>
+//     <div className="card-content">
+//       <p>{content}</p>
+//       <h3>{quantity}</h3>
+//     </div>
+//   </div>
+// );
+
+// const Dashboard = () => {
+//   const [data, setData] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [retryCount, setRetryCount] = useState(0);
+//   const navigate = useNavigate();
+
+//   const itemTypes = [
+//     { title: "Pump", color: "#E1341E" },
+//     { title: "Controller", color: "#97bcc7" },
+//     { title: "Motor", color: "#FFAEBC" },
+    
+//   ];
+
+//   const fetchData = async () => {
+//     try {
+//       setLoading(true);
+//       setError(null);
+//       const response = await Api.get("/admin/showDefectiveItemsOfWarehouse");
+//       setData(response.data.data);
+//     } catch (err) {
+//       const errMsg =
+//         err.response?.data?.message || err.message || "Unknown error";
+//       setError(errMsg);
+//       console.log("Dashboard fetch error:", err);
+
+//       if (retryCount < 3) {
+//         setTimeout(() => {
+//           setRetryCount((prev) => prev + 1);
+//         }, 2000);
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchData();
+//   }, [retryCount]);
+
+//   const handleMoreInfo = (itemType) => {
+//     navigate("/AllDefective", { state: { itemType } });
+//   };
+
+//   if (loading && retryCount === 0) {
+//     return (
+//       <div className="loader-container">
+//         <div className="spinner" aria-busy="true" aria-label="Loading dashboard data"></div>
+//         <p>Loading dashboard...</p>
+//       </div>
+//     );
+//   }
+
+//   if (error && retryCount >= 3) {
+//     return (
+//       <div className="error-container">
+//         <div className="error-message">
+//           <p>Failed to load dashboard data: {error}</p>
+//           <button
+//             onClick={() => {
+//               setRetryCount(0);
+//               fetchData();
+//             }}
+//             className="retry-button"
+//           >
+//             Retry
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="dashboard-container">
+//       <div className="header">
+//         <div className="header-left">
+//           <Sidebar />
+//         </div>
+//         <div className="header-center">
+//           <div className="logo-title">
+//             <img src={pumpIcon} alt="Logo" className="logo-image" />
+//             <h1 className="header-text">RMS ADMIN</h1>
+//           </div>
+//         </div>
+//         <div className="header-right">
+//           <Logout />
+//         </div>
+//       </div>
+
+//       <div className="main-content">
+//         <div className="cards-container">
+//           {itemTypes.map(({ title, color }) => {
+//             const itemData = data?.totalsByGroup?.find(
+//               (item) => item.item === title
+//             );
+//             return (
+//               <div className="card-wrapper" key={title}>
+//                 <SimpleCard
+//                   backgroundColor={color}
+//                   title={title}
+//                   content="Total Defective"
+//                   quantity={itemData?.defectiveCount || 0}
+//                   onMoreInfo={() => handleMoreInfo(title)}
+//                 />
+//               </div>
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Dashboard;
+
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import pumpIcon from "../../assets/Galo.png";
+import Api from "../../Auth/Api";
+import Logout from "../../Auth/Logout";
+import "./Dashboard.css";
+import Sidebar from "../Sidebar/Sidebar";
+
+const SimpleCard = ({ backgroundColor, title, content, quantity, onMoreInfo }) => (
   <div className="card" style={{ backgroundColor }}>
-    <h2>{title}</h2>
-    <p>{content}</p>
-    <h3>{quantity}</h3>
+    <div className="card-header">
+      <h2>{title}</h2>
+      <button className="more-info-button" onClick={onMoreInfo}>
+        More Info
+      </button>
+    </div>
+    <div className="card-content">
+      <p>{content}</p>
+      <h3>{quantity}</h3>
+    </div>
   </div>
 );
 
@@ -16,42 +166,59 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
   const navigate = useNavigate();
 
   const itemTypes = [
-    { title: 'Pump', color: '#E1341E' },
-    { title: 'Controller', color: '#97bcc7' },
-    { title: 'Motor', color: '#FFAEBC' },
+    { title: "Pump", color: "#E1341E" },
+    { title: "Controller", color: "#97bcc7" },
+    { title: "Motor", color: "#FFAEBC" },
+    
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'http://88.222.214.93:5000/admin/showDefectiveItemsOfWarehouse'
-        );
-        setData(response.data.data);
-      } catch (err) {
-        const errMsg = err.response?.data?.message || err.message || 'Unknown error';
-        setError(errMsg);
-        alert('Error: ' + errMsg);
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await Api.get("/admin/showDefectiveItemsOfWarehouse");
+      setData(response.data.data);
+    } catch (err) {
+      const errMsg = err.response?.data?.message || err.message || "Unknown error";
+      setError(errMsg);
+      if (retryCount < 3) {
+        setTimeout(() => setRetryCount(prev => prev + 1), 2000);
       }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleMoreInfo = (itemType) => {
-    navigate('/AllDefective', { state: { itemType } });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (loading) {
+  useEffect(() => {
+    fetchData();
+  }, [retryCount]);
+
+  const handleMoreInfo = (itemType) => {
+    navigate("/AllDefective", { state: { itemType } });
+  };
+
+  if (loading && retryCount === 0) {
     return (
-      <div className="loader">
-        <div className="spinner" role="status" aria-live="polite"></div>
-        <p>Loading...</p>
+      <div className="loader-container">
+        <div className="spinner"></div>
+        <p>Loading dashboard...</p>
+      </div>
+    );
+  }
+
+  if (error && retryCount >= 3) {
+    return (
+      <div className="error-container">
+        <div className="error-message">
+          <p>Failed to load dashboard data: {error}</p>
+          <button onClick={() => { setRetryCount(0); fetchData(); }} className="retry-button">
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
@@ -59,9 +226,17 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="header">
-        <div className="logo-container">
-          <img src={pumpIcon} alt="Logo" className="logo-image" />
-          <h1 className="header-text">RMS ADMIN</h1>
+        <div className="header-left">
+          <Sidebar />
+        </div>
+        <div className="header-center">
+          <div className="logo-title">
+            <img src={pumpIcon} alt="Logo" className="logo-image" />
+            <h1 className="header-text">RMS ADMIN</h1>
+          </div>
+        </div>
+        <div className="header-right">
+          <Logout />
         </div>
       </div>
 
@@ -71,14 +246,12 @@ const Dashboard = () => {
             const itemData = data?.totalsByGroup?.find(item => item.item === title);
             return (
               <div className="card-wrapper" key={title}>
-                <button className="more-info-button" onClick={() => handleMoreInfo(title)}>
-                  More Info
-                </button>
                 <SimpleCard
                   backgroundColor={color}
                   title={title}
                   content="Total Defective"
                   quantity={itemData?.defectiveCount || 0}
+                  onMoreInfo={() => handleMoreInfo(title)}
                 />
               </div>
             );
