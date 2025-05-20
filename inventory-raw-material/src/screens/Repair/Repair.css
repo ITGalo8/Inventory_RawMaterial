@@ -1,0 +1,152 @@
+.repair-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.repair-form-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.repair-heading {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-select, .form-input, .form-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-select:focus, .form-input:focus, .form-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.error {
+  border-color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.quantity-row {
+  display: flex;
+  gap: 10px;
+}
+
+.quantity-row .form-input {
+  flex: 1;
+}
+
+.quantity-row .form-select {
+  flex: 1;
+  min-width: 120px;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button.disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.form-scroll-content {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Multiselect custom styles */
+.multiselect-container {
+  width: 100%;
+}
+
+.multiselect-container .searchBox {
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  padding: 8px !important;
+}
+
+.multiselect-container .optionListContainer {
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  margin-top: 5px !important;
+}
+
+.multiselect-container .chip {
+  background: #007bff !important;
+}
+
+.multiselect-container .option:hover {
+  background: #f0f0f0 !important;
+}
+
+.multi-select {
+  margin-bottom: 15px;
+}
+
+.select__control {
+  border: 1px solid #ddd !important;
+  min-height: 38px !important;
+}
+
+.select__control--is-focused {
+  border-color: #2684FF !important;
+  box-shadow: 0 0 0 1px #2684FF !important;
+}
+
+.select__multi-value {
+  background-color: #e6f2ff !important;
+}
+
+.select__multi-value__label {
+  color: #007bff !important;
+}

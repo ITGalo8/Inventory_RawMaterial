@@ -36,7 +36,10 @@ import Dashboard from './screens/Dashboard/Dashboard';
 import AllDefective from './screens/Dashboard/AllDefectiveData/AllDefective';
 import Sidebar from './screens/Sidebar/Sidebar';
 import Bom from './screens/Bom/Bom';
-// import InsufficientRawMaterials from './screens/InsufficientRawMaterials/InsufficientRawMaterials';
+import BomStock from './screens/BomStock/BomStock';
+import EmptyBomStock from './screens/BomStock/InsufficientRawMaterials/EmptyBomStock';
+import Repair from './screens/Repair/Repair';
+
 
 const App = () => {
   return (
@@ -47,7 +50,9 @@ const App = () => {
         <Route path="/AllDefective" element={<AllDefective />} />
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/Bom" element={<Bom/>} />
-        {/* <Route path="/InsufficientRawMaterials" element={<InsufficientRawMaterials/>} /> */}
+        <Route path="/BomStock" element={<BomStock/>} />
+        <Route path="/EmptyBomStock" element={<EmptyBomStock/>} />
+        <Route path="/Repair" element={<Repair/>} />
 
       </Routes>
     </div>
