@@ -39,6 +39,9 @@ import Bom from './screens/Bom/Bom';
 import BomStock from './screens/BomStock/BomStock';
 import EmptyBomStock from './screens/BomStock/InsufficientRawMaterials/EmptyBomStock';
 import Repair from './screens/Repair/Repair';
+import RepairHistory from './screens/Repair/RepairHistory/RepairHistory';
+import Reject from './screens/Reject/Reject';
+import RejectHistory from './screens/Reject/RejectHistory/RejectHistory';
 
 
 const App = () => {
@@ -53,6 +56,9 @@ const App = () => {
         <Route path="/BomStock" element={<BomStock/>} />
         <Route path="/EmptyBomStock" element={<EmptyBomStock/>} />
         <Route path="/Repair" element={<Repair/>} />
+        <Route path="/RepairHistory" element={<RepairHistory/>} />
+        <Route path="/Reject" element={<Reject/>} />
+        <Route path="/RejectHistory" element={<RejectHistory/>} />
 
       </Routes>
     </div>

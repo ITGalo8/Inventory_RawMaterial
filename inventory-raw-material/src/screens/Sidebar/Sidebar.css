@@ -225,7 +225,11 @@
 }
 
 .sidebar-link:hover {
-  background: #34495e;
+  .link-text{
+    color: #fff;
+  }
+  background: #000;
+  /* color: #fff; */
 }
 
 .sidebar-link.active {
@@ -293,6 +297,11 @@
 
 .link-text {
   color: #000;
+}
+
+.link-text:hover{
+  color: #fff
+
 }
 
 @media (max-width: 767px) {

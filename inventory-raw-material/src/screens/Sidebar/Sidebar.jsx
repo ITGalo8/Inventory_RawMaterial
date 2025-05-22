@@ -194,6 +194,38 @@ const Sidebar = () => {
           >
             <span className="link-text">Repair</span>
           </NavLink>
+
+           <NavLink
+            to="/Reject"
+            className={({ isActive }) =>
+              `sidebar-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => isMobile && setIsOpen(false)}
+          >
+            <span className="link-text">Reject</span>
+          </NavLink>
+
+           <NavLink
+            to="/RepairHistory"
+            className={({ isActive }) =>
+              `sidebar-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => isMobile && setIsOpen(false)}
+          >
+            <span className="link-text">Repair History</span>
+          </NavLink>
+
+          <NavLink
+            to="/RejectHistory"
+            className={({ isActive }) =>
+              `sidebar-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => isMobile && setIsOpen(false)}
+          >
+            <span className="link-text">Reject History</span>
+          </NavLink>
+
+         
         </nav>
       </div>
     </>
