@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
-import './BomStock.css';
+import './ProductCount.css';
 import Api from '../../Auth/Api';
 
-const BomStock = () => {
+const ProductCount = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -143,4 +142,4 @@ const BomStock = () => {
   );
 };
 
-export default BomStock;
+export default ProductCount;
