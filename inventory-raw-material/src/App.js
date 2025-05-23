@@ -50,6 +50,8 @@ import NewProduction from './screens/New Production/NewProduction';
 
 
 const App = () => {
+  console.log(process.env.REACT_APP_API_URL);
+
   return (
     <div style={{ padding: 20 }}>
       <Routes>
@@ -69,6 +71,7 @@ const App = () => {
         <Route path="/BomStock" element={<BomStock/>} />
         <Route path="/UpdateStockMaterial" element={<UpdateStockMaterial/>} />
         <Route path="/NewProduction" element={<NewProduction/>} />
+        
 
       </Routes>
     </div>

@@ -1,8 +1,8 @@
-// src/api.js
 import axios from 'axios';
 
+console.log('API URL:', process.env.REACT_APP_API_URL);
 const Api = axios.create({
-  baseURL: 'http://88.222.214.93:5000',
+  baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
 });
 
