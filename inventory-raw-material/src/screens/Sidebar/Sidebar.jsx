@@ -75,7 +75,7 @@ const Sidebar = () => {
             }
             onClick={() => isMobile && setIsOpen(false)}
           >
-            <span className="link-text">Bom</span>
+            <span className="link-text">Product Bom</span>
           </NavLink>
 
           <NavLink
@@ -85,7 +85,7 @@ const Sidebar = () => {
             }
             onClick={() => isMobile && setIsOpen(false)}
           >
-            <span className="link-text">Product Count</span>
+            <span className="link-text">Producable Count</span>
           </NavLink>
 
           <NavLink
@@ -95,7 +95,7 @@ const Sidebar = () => {
             }
             onClick={() => isMobile && setIsOpen(false)}
           >
-            <span className="link-text">Repair</span>
+            <span className="link-text">Repair Form</span>
           </NavLink>
 
            <NavLink
@@ -105,7 +105,7 @@ const Sidebar = () => {
             }
             onClick={() => isMobile && setIsOpen(false)}
           >
-            <span className="link-text">Reject</span>
+            <span className="link-text">Reject Form</span>
           </NavLink>
 
            <NavLink
@@ -155,7 +155,7 @@ const Sidebar = () => {
             }
             onClick={() => isMobile && setIsOpen(false)}
           >
-            <span className="link-text">Bom Stock</span>
+            <span className="link-text">Raw Material Stock</span>
           </NavLink>
 
           <NavLink
@@ -165,7 +165,7 @@ const Sidebar = () => {
             }
             onClick={() => isMobile && setIsOpen(false)}
           >
-            <span className="link-text">New Production</span>
+            <span className="link-text">New Production Form</span>
           </NavLink>
 
          
