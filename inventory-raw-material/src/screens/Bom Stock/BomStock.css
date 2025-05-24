@@ -1,6 +1,6 @@
 .stock-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 300px;
+  /* margin: 0 auto; */
   padding: 20px;
 }
 
@@ -21,8 +21,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .header {
@@ -31,6 +36,7 @@
   color: #2c3e50;
   margin: 20px 0;
   text-align: center;
+  justify-content: center;
 }
 
 .search-container {
@@ -82,7 +88,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   max-height: 50px;
-  border:1px solid gray
+  border: 1px solid gray
 }
 
 .card:hover {
@@ -116,6 +122,7 @@
   background-color: #e74c3c;
   margin-right: 8px;
 }
+
 .high-stock-indicator {
   width: 10px;
   height: 10px;
@@ -233,7 +240,7 @@
   .card-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .header {
     font-size: 1.5rem;
   }
