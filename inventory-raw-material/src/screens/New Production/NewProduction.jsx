@@ -41,6 +41,13 @@ const NewProduction = () => {
     setQuantityProduced('');
   };
 
+  const resetDefectiveItems = () => {
+    setDefectiveItems([]);
+    setSelectedDefectiveItem(null);
+    setSelectedDefectiveItemName('');
+    setQuantityProduced('');
+  };
+
   const fetchItems = async (itemName) => {
     setLoading(true);
     setError(null);
@@ -49,7 +56,7 @@ const NewProduction = () => {
       setItems(response.data.data || []);
     } catch (err) {
       setError('Failed to fetch items');
-      alert(`Error: ${err?.response?.data?.message}`);
+      console.log(`Error: ${err?.response?.data?.message}`);
     } finally {
       setLoading(false);
     }
@@ -61,13 +68,18 @@ const NewProduction = () => {
     try {
       const response = await Api.get(`/admin/showDefectiveItemsList?itemName=${subItem}`);
       if (response.data.success) {
-        setDefectiveItems(response.data.data || []);
+        // Add unique identifiers to distinguish similar items
+        const itemsWithUniqueValues = response.data.data.map((item, index) => ({
+          ...item,
+          uniqueId: `${item._id}-${index}-${Date.now()}` // Create truly unique ID
+        }));
+        setDefectiveItems(itemsWithUniqueValues);
       } else {
         setError(response.data.message || 'No defective items found');
       }
     } catch (err) {
       setError('Failed to fetch defective items');
-      alert(`Error: ${err?.response?.data?.message}`);
+      console.log(`Error: ${err?.response?.data?.message}`);
     } finally {
       setLoading(false);
     }
@@ -87,10 +99,13 @@ const NewProduction = () => {
     try {
       setLoading(true);
       const userId = localStorage.getItem('userId');
+      
+      // Find the original item using the uniqueId
+      const selectedItem = defectiveItems.find(item => item.uniqueId === selectedDefectiveItem);
 
       const payload = {
-        itemId: selectedItem,
-        subItem: selectedDefectiveItemName,
+        itemId: selectedItem._id, // Use the original ID
+        subItem: selectedItem.itemName,
         quantityProduced: Number(quantityProduced),
         userId: userId,
       };
@@ -99,7 +114,7 @@ const NewProduction = () => {
 
       if (response.data.success) {
         alert('New item produced successfully!');
-        resetSelections();
+        resetDefectiveItems();
       } else {
         alert(response.data.message);
       }
@@ -117,27 +132,31 @@ const NewProduction = () => {
       <div className="dropdown-container">
         <Select
           onChange={(option) => {
-            resetSelections();
             setSelectedItemType(option?.value);
+            resetSelections();
           }}
           options={itemTypes}
           placeholder="Select an item type..."
           styles={customSelectStyles}
-          value={itemTypes.find(opt => opt.value === selectedItemType)}
+          value={selectedItemType ? itemTypes.find(opt => opt.value === selectedItemType) : null}
+          isClearable={true}
         />
       </div>
 
       {loading && <div className="loader">Loading...</div>}
       {error && <div className="error-text">{error}</div>}
 
-      {items.length > 0 && (
+      {selectedItemType && items.length > 0 && (
         <div className="dropdown-container">
           <Select
             onChange={(option) => {
               const selected = items.find(item => item.id === option?.value);
               setSelectedItem(option?.value);
               setSelectedItemName(selected?.name || '');
-              fetchDefectiveItems(selectedItemType, selected?.name || '');
+              resetDefectiveItems();
+              if (selected) {
+                fetchDefectiveItems(selectedItemType, selected.name);
+              }
             }}
             options={items.map(item => ({
               label: item.name,
@@ -145,27 +164,40 @@ const NewProduction = () => {
             }))}
             placeholder="Select a specific item..."
             styles={customSelectStyles}
-            value={items.find(item => item.id === selectedItem)}
+            value={selectedItem ? {
+              label: items.find(item => item.id === selectedItem)?.name,
+              value: selectedItem
+            } : null}
+            isClearable={true}
+            isSearchable={true}
           />
         </div>
       )}
 
-      {defectiveItems.length > 0 && (
+      {selectedItem && defectiveItems.length > 0 && (
         <>
           <div className="dropdown-container">
             <Select
               onChange={(option) => {
-                const selected = defectiveItems.find(item => item._id === option?.value);
                 setSelectedDefectiveItem(option?.value);
+                const selected = defectiveItems.find(item => item.uniqueId === option?.value);
                 setSelectedDefectiveItemName(selected?.itemName || '');
               }}
               options={defectiveItems.map(item => ({
-                label: item.itemName,
-                value: item._id,
+                label: `${item.itemName} (${item.specifications || item.voltage || 'N/A'})`, // Include distinguishing info
+                value: item.uniqueId,
+                originalId: item._id
               }))}
               placeholder="Select a defective item..."
               styles={customSelectStyles}
-              value={defectiveItems.find(item => item._id === selectedDefectiveItem)}
+              value={selectedDefectiveItem ? {
+                label: defectiveItems.find(item => item.uniqueId === selectedDefectiveItem)?.itemName,
+                value: selectedDefectiveItem
+              } : null}
+              isClearable={true}
+              isSearchable={true}
+              getOptionValue={(option) => option.value}
+              getOptionLabel={(option) => option.label}
             />
           </div>
 
@@ -175,6 +207,7 @@ const NewProduction = () => {
             type="number"
             value={quantityProduced}
             onChange={(e) => setQuantityProduced(e.target.value)}
+            min="1"
           />
 
           <button
@@ -193,7 +226,7 @@ const NewProduction = () => {
 };
 
 const customSelectStyles = {
-  control: (provided) => ({
+  control: (provided, state) => ({
     ...provided,
     fontSize: '16px',
     minHeight: '48px',
@@ -203,6 +236,10 @@ const customSelectStyles = {
     color: 'black',
     width: '100%',
     boxShadow: 'none',
+    '&:hover': {
+      borderColor: state.isFocused ? '#2684FF' : '#999',
+    },
+    borderColor: state.isFocused ? '#2684FF' : '#ccc',
   }),
   valueContainer: (provided) => ({
     ...provided,
@@ -216,6 +253,22 @@ const customSelectStyles = {
   menu: (provided) => ({
     ...provided,
     zIndex: 9999,
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? '#007bff' : state.isFocused ? '#e6f7ff' : 'white',
+    color: state.isSelected ? 'white' : 'black',
+    '&:hover': {
+      backgroundColor: state.isSelected ? '#007bff' : '#f0f0f0',
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'black',
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: '#999',
   }),
 };
 

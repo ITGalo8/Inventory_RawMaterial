@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Reject.css'; // We'll create this CSS file for styling
-import Api from '../../Auth/Api'
+import './Reject.css';
+import Api from '../../Auth/Api';
 
 const Reject = () => {
   const [selectedItemType, setSelectedItemType] = useState(null);
@@ -158,13 +158,11 @@ const Reject = () => {
   };
 
   const handleItemSelect = (e) => {
-    const options = e.target.options;
-    const selected = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selected.push(options[i].value);
-      }
-    }
+    const options = Array.from(e.target.options);
+    const selected = options
+      .filter(option => option.selected)
+      .map(option => option.value);
+    
     setSelectedItems(selected);
     
     const newQuantities = { ...quantities };
@@ -336,9 +334,9 @@ const Reject = () => {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit} className="form-container">
-        <h1 className="heading">Reject Data Entry</h1>
+    <div className="reject-container">
+      <form onSubmit={handleSubmit} className="reject-form-container">
+        <h1 className="reject-heading">Reject Data Entry</h1>
         
         <div className="section">
           <label className="label">Item Type*</label>
@@ -414,7 +412,7 @@ const Reject = () => {
         )}
 
         {selectedItems.length > 0 && (
-          <div className="scroll-container">
+          <>
             {selectedItems.map(itemId => {
               const item = allItems.find(i => i.id === itemId);
               const errorKey = `material_${itemId}`;
@@ -543,7 +541,7 @@ const Reject = () => {
             >
               {submitting ? 'Submitting...' : 'Submit Data'}
             </button>
-          </div>
+          </>
         )}
       </form>
     </div>
