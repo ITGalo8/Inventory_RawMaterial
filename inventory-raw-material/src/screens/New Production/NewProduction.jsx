@@ -184,11 +184,12 @@ const NewProduction = () => {
                 setSelectedDefectiveItemName(selected?.itemName || '');
               }}
               options={defectiveItems.map(item => ({
-                label: `${item.itemName} (${item.specifications || item.voltage || 'N/A'})`, // Include distinguishing info
+                // label: `${item.itemName} (${item.specifications || item.voltage || 'N/A'})`, // Include distinguishing info
+                label: `${item.itemName}`,
                 value: item.uniqueId,
                 originalId: item._id
               }))}
-              placeholder="Select a defective item..."
+              placeholder="Select..."
               styles={customSelectStyles}
               value={selectedDefectiveItem ? {
                 label: defectiveItems.find(item => item.uniqueId === selectedDefectiveItem)?.itemName,
@@ -217,7 +218,7 @@ const NewProduction = () => {
             onClick={handleProceed}
             disabled={!selectedDefectiveItem || !quantityProduced}
           >
-            Proceed to Repair
+            New Production
           </button>
         </>
       )}
