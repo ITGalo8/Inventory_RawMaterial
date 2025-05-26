@@ -1,81 +1,97 @@
-.container {
-  max-width: 600px;
+/* AddItem.css */
+
+.add-item-container {
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.section {
-  margin-bottom: 15px;
+.add-item-section {
+  margin-bottom: 20px;
 }
 
-.label {
+.add-item-label {
   display: block;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
   margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
 }
 
-.select-container {
+.add-item-select-container {
   position: relative;
-  margin-bottom: 15px;
+  width: 100%;
 }
 
-.select {
+.add-item-select {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
   font-size: 16px;
   appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
-.input {
+.add-item-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.add-item-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.add-item-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.add-item-button {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-
-.button {
-  width: 100%;
-  padding: 15px;
-  background-color: #070604;
+  background-color: #4a90e2;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
+  transition: background-color 0.2s;
 }
 
-.button:hover {
-  opacity: 0.9;
+.add-item-button:hover:not(:disabled) {
+  background-color: #3a7bc8;
 }
 
-.button:disabled,
-.button.disabled {
+.add-item-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
 
-.spinner {
+.add-item-spinner {
   display: inline-block;
   width: 20px;
   height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #ffffff;
-  animation: spin 1s ease-in-out infinite;
+  border-top-color: white;
+  animation: add-item-spin 1s ease-in-out infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes add-item-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

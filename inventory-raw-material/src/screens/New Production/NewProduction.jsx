@@ -78,7 +78,7 @@ const NewProduction = () => {
         setError(response.data.message || 'No defective items found');
       }
     } catch (err) {
-      setError('Failed to fetch defective items');
+      setError(err?.response?.data?.message);
       console.log(`Error: ${err?.response?.data?.message}`);
     } finally {
       setLoading(false);

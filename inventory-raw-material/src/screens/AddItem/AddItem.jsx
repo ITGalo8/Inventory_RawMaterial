@@ -46,14 +46,14 @@ const AddItem = () => {
   }, [name, selectedItemType]);
 
   return (
-    <div className="container">
-      <div className="section">
-        <label className="label">Item Type*</label>
-        <div className="select-container">
+    <div className="add-item-container">
+      <div className="add-item-section">
+        <label className="add-item-label">Item Type*</label>
+        <div className="add-item-select-container">
           <select
             value={selectedItemType || ''}
             onChange={(e) => setSelectedItemType(e.target.value || null)}
-            className="select"
+            className="add-item-select"
           >
             <option value="">Select item type</option>
             {itemTypes.map((item, index) => (
@@ -63,22 +63,22 @@ const AddItem = () => {
         </div>
       </div>
       
-      <label className="label">Item Name*:</label>
+      <label className="add-item-label">Item Name*:</label>
       <input
         type="text"
-        className="input"
+        className="add-item-input"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter item name"
         autoCapitalize="characters"
       />
       <button
-        className={`button ${(loading || !name.trim() || !selectedItemType) ? 'disabled' : ''}`}
+        className={`add-item-button ${(loading || !name.trim() || !selectedItemType) ? 'disabled' : ''}`}
         onClick={handleSubmit}
         disabled={loading || !name.trim() || !selectedItemType}
       >
         {loading ? (
-          <span className="spinner"></span>
+          <span className="add-item-spinner"></span>
         ) : (
           'Add Item'
         )}

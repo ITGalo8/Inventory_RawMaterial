@@ -416,7 +416,7 @@ const Dashboard = () => {
           {serviceData && (
             <div className="card-wrapper">
               <SimpleCard
-                backgroundColor="#4CAF50"
+                backgroundColor="#b6e2d3"
                 title="Repaired Items"
                 content={`Total: ${serviceData.total}`}
                 quantity={`Monthly: ${serviceData.monthly}`}
@@ -428,7 +428,7 @@ const Dashboard = () => {
           {rejectedData && (
             <div className="card-wrapper">
               <SimpleCard
-                backgroundColor="#FF7043"
+                backgroundColor="#b6e2d3"
                 title="Rejected Items"
                 content={`Total: ${rejectedData.total}`}
                 quantity={`Monthly: ${rejectedData.monthly}`}
@@ -440,7 +440,7 @@ const Dashboard = () => {
           {productionData && (
             <div className="card-wrapper">
               <SimpleCard
-                backgroundColor="#2196F3"
+                backgroundColor="#b6e2d3"
                 title="Total Production"
                 content={`Total: ${productionData.total}`}
                 quantity={`Monthly: ${productionData.monthly}`}

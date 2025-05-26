@@ -374,7 +374,7 @@ const Reject = () => {
               <option value="">Select {selectedItemType}</option>
               {itemList.map((item, index) => (
                 <option key={index} value={item.itemName}>
-                  {item.itemName} (Defective: {item.defective})
+                  {item.itemName}
                 </option>
               ))}
             </select>
