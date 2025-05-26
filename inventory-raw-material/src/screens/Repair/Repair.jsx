@@ -362,7 +362,7 @@ const Repair = () => {
                   key={index} 
                   value={JSON.stringify(item)}
                 >
-                  {`${item.itemName} (Defective: ${item.defective})`}
+                  {`${item.itemName}`}
                 </option>
               ))}
             </select>
