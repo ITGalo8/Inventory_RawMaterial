@@ -150,3 +150,26 @@
 .select__multi-value__label {
   color: #007bff !important;
 }
+
+/* Add these styles to your existing Repair.css */
+.repair-container .select__option--is-focused[data-value="select-all"] {
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: bold;
+}
+
+.repair-container .select__option[data-value="select-all"] {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.repair-container .select__multi-value[data-value="select-all"] {
+  background-color: #e6f7ff;
+  border: 1px solid #91d5ff;
+}
+
+.repair-container .select__multi-value__label[data-value="select-all"] {
+  font-weight: bold;
+  color: #1890ff;
+}

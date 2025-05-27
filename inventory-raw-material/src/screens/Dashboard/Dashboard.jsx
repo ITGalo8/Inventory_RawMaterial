@@ -323,9 +323,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const itemTypes = [
-    { title: "Pump", color: "#E1341E" },
-    { title: "Controller", color: "#97bcc7" },
-    { title: "Motor", color: "#FFAEBC" },
+    { title: "Pump", color: "#ffd438" },
+    { title: "Controller", color: "#ffd438" },
+    { title: "Motor", color: "#ffd438" },
   ];
 
   const fetchAllData = async () => {
@@ -416,7 +416,7 @@ const Dashboard = () => {
           {serviceData && (
             <div className="card-wrapper">
               <SimpleCard
-                backgroundColor="#b6e2d3"
+                backgroundColor="#ffd438"
                 title="Repaired Items"
                 content={`Total: ${serviceData.total}`}
                 quantity={`Monthly: ${serviceData.monthly}`}
@@ -428,7 +428,7 @@ const Dashboard = () => {
           {rejectedData && (
             <div className="card-wrapper">
               <SimpleCard
-                backgroundColor="#b6e2d3"
+                backgroundColor="#ffd438"
                 title="Rejected Items"
                 content={`Total: ${rejectedData.total}`}
                 quantity={`Monthly: ${rejectedData.monthly}`}
@@ -440,7 +440,7 @@ const Dashboard = () => {
           {productionData && (
             <div className="card-wrapper">
               <SimpleCard
-                backgroundColor="#b6e2d3"
+                backgroundColor="#ffd438"
                 title="Total Production"
                 content={`Total: ${productionData.total}`}
                 quantity={`Monthly: ${productionData.monthly}`}

@@ -1,147 +1,3 @@
-/* .sidebar {
-  height: 100vh;
-  background: 	#ffd438;
-  color: white;
-  transition: all 0.3s ease;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  overflow-y: auto;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar.open {
-  width: 250px;
-}
-
-.sidebar.closed {
-  width: 0;
-  overflow: hidden;
-}
-
-.sidebar.desktop-closed {
-  width: 60px;
-}
-
-.toggle-btn {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1100;
-  background: #2c3e50;
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-.uppermenu {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  flex-grow: 1;
-}
-
-.sidebar-link {
-  color: #ecf0f1;
-  text-decoration: none;
-  padding: 12px 10px;
-  margin: 5px 0;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.sidebar-link:hover {
-  background: #34495e;
-}
-
-.sidebar-link.active {
-  background: #fff;
-  font-weight: bold;
-}
-
-.link-icon {
-  margin-right: 15px;
-  font-size: 20px;
-}
-
-.user-info {
-  background: #000;
-  display: flex;
-  align-items: center;
-  padding: 20px 10px;
-  border-bottom: 1px solid #34495e;
-  min-height: 60px;
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  background: #3498db;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  font-weight: bold;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.user-name {
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
-.sidebar.desktop-closed .user-name,
-.sidebar.desktop-closed .link-text {
-  display: none;
-}
-
-.sidebar.desktop-closed .user-info {
-  justify-content: center;
-  padding: 20px 0;
-}
-
-.sidebar.desktop-closed .user-avatar {
-  margin-right: 0;
-}
-
-.sidebar.desktop-closed .sidebar-link {
-  justify-content: center;
-  padding: 12px 0;
-}
-
-.sidebar.desktop-closed .link-icon {
-  margin-right: 0;
-}
-
-@media (max-width: 767px) {
-  .toggle-btn {
-    display: block;
-  }
-  
-  .sidebar.desktop-closed {
-    width: 0;
-    overflow: hidden;
-  }
-}
-
-.link-text{
-  color: #000;
-} */
-
 .sidebar {
   height: 100vh;
   background: #ffd438;
@@ -229,7 +85,7 @@
     color: #fff;
   }
   background: #000;
-  /* color: #fff; */
+
 }
 
 .sidebar-link.active {
@@ -297,7 +153,6 @@
 
 .link-text {
   color: #000;
-  /* text-size-adjust: 50%; */
   font-size: 16px;
 }
 
