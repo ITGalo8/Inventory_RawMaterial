@@ -222,14 +222,6 @@ const Reject = () => {
       validationErrors.item = 'Please select a specific item';
     }
 
-    if (!quantity || isNaN(parseFloat(quantity))) {
-      validationErrors.quantity = 'Please enter a valid quantity';
-    } else if (parseFloat(quantity) <= 0) {
-      validationErrors.quantity = 'Quantity must be greater than 0';
-    } else if (parseFloat(quantity) > selectedItem?.defective) {
-      validationErrors.quantity = `Quantity cannot exceed ${selectedItem.defective}`;
-    }
-
     if (!faultType) {
       validationErrors.faultType = 'Please select a fault type';
     }
