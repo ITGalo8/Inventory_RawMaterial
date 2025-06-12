@@ -202,6 +202,7 @@ import {
   FiX,
   FiAlertCircle,
   FiPackage,
+  FiCheckCircle,
 } from "react-icons/fi";
 import "./BomStock.css";
 import Api from "../../Auth/Api";
@@ -344,28 +345,26 @@ const BomStock = () => {
     >
       <div className="card-header">
         <div className="name-container">
-          <div
-            className={
-              item.stockIsLow ? "low-stock-indicator" : "high-stock-indicator"
-            }
-          />
+          <div className="stock-status-indicator">
+            {item.stockIsLow ? (
+              <div className="low-stock-pulse" />
+            ) : (
+              <FiCheckCircle className="high-stock-check" />
+            )}
+          </div>
           <span className="name">{item.name}</span>
         </div>
         <div className="stock-info">
-          <span className={`stock ${item.stockIsLow ? "low-stock-text" : ""}`}>
+          <span className={`stock ${item.stockIsLow ? "low-stock-text" : "high-stock-text"}`}>
             {item.stock} {item.unit || ""}
           </span>
-          <FiChevronRight size={20} color="#7f8c8d" />
+          <FiChevronRight size={20} color={item.stockIsLow ? "#e74c3c" : "#2ecc71"} />
         </div>
       </div>
       {item.threshold != null && (
         <div className="threshold-container">
           <span className="threshold-label">Threshold:</span>
-          <span
-            className={`threshold-value ${
-              item.stock <= item.threshold ? "threshold-warning" : ""
-            }`}
-          >
+          <span className={`threshold-value ${item.stockIsLow ? "threshold-warning" : ""}`}>
             {item.threshold}
           </span>
         </div>
@@ -376,6 +375,12 @@ const BomStock = () => {
           <span className="quantity-used-value">
             {item.quantityUsedInThisItem} {item.unit || ""}
           </span>
+        </div>
+      )}
+      {item.stockIsLow && (
+        <div className="low-stock-warning">
+          <FiAlertCircle size={16} />
+          <span>Low Stock Warning</span>
         </div>
       )}
     </div>
