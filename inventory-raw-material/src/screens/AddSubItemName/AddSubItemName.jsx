@@ -14,7 +14,7 @@ const AddSubItemName = () => {
         const response = await axios.get('http://88.222.214.93:5000/admin/showUnit');
         setUnit(response.data.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.log('Error fetching data:', error);
         alert('Failed to fetch unit');
       } finally {
         setFetching(false);
@@ -46,7 +46,7 @@ const AddSubItemName = () => {
       setRawMaterialName('');
       setSelectedUnitName('');
     } catch (error) {
-      console.error('Error adding item:', error);
+      console.log('Error adding item:', error);
       const errorMessage =
         error.response?.data?.message || 'An unexpected error occurred. Please try again.';
       alert(errorMessage);
