@@ -265,10 +265,13 @@ const BomStock = () => {
       if (response.data?.data) {
         const sortedData = response.data.data
           .sort((a, b) => a.name.localeCompare(b.name))
-          .map((item) => ({
-            ...item,
-            stockIsLow: item.threshold != null && item.stock <= item.threshold,
-          }));
+          // .map((item) => ({
+          //   ...item,
+          //   // Updated logic to mark as low stock if:
+          //   // 1. Stock is 0, or
+          //   // 2. Stock is below threshold (when threshold exists)
+          //   // stockIsLow: item.stock === 0 || (item.threshold != null && item.stock <= item.threshold),
+          // }));
         setData(sortedData);
         setFilteredData(sortedData);
       } else {
@@ -452,8 +455,7 @@ const BomStock = () => {
         <div className="empty-container">
           <FiPackage size={50} color="#95a5a6" />
           <p className="empty-text">
-            Please select a {selectedItemType.toLowerCase()} to view raw
-            materials
+            Please select a {selectedItemType.toLowerCase()} to view raw materials
           </p>
         </div>
       )}
